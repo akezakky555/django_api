@@ -1,0 +1,9 @@
+FROM python:3.7.2
+ENV PYTHONUNBUFFERED 1
+RUN mkdir /gateway
+WORKDIR /gateway
+COPY requirements.txt /gateway/
+RUN pip install -r requirements.txt
+COPY . /gateway/
+EXPOSE 8000
+#ENTRYPOINT ["uwsgi", "--ini", "gateway.ini"]

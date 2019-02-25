@@ -1,0 +1,50 @@
+version: '3.3'
+
+services:
+  webserver:
+    container_name: nginx
+    image: nginx:1.15.8
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    ports:
+      - "8111:80"
+    networks:
+      - api_network
+
+  gateway:
+    container_name: gateway
+    build:
+      context: .
+      dockerfile: Dockerfile.gateway
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./gateway:/gateway
+    ports:
+      - "8000:8000"
+    networks:
+      - api_network
+
+  report:
+    container_name: report
+    build:
+      context: .
+      dockerfile: Dockerfile.report
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./report:/report
+    networks:
+      - api_network
+
+  customer:
+    container_name: customer
+    build:
+      context: .
+      dockerfile: Dockerfile.apps
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./customer:/customer
+    networks:
+      - api_network
+
+networks:
+  api_network:
