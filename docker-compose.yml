@@ -16,7 +16,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.gateway
-    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./gateway:/gateway
     ports:
@@ -29,7 +28,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.report
-    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./report:/report
     networks:
@@ -39,8 +37,7 @@ services:
     container_name: customer
     build:
       context: .
-      dockerfile: Dockerfile.apps
-    command: python manage.py runserver 0.0.0.0:8000
+      dockerfile: Dockerfile.customer
     volumes:
       - ./customer:/customer
     networks:

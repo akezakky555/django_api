@@ -7,3 +7,5 @@ RUN pip install -r requirements.txt
 COPY . /report/
 EXPOSE 8000
 #ENTRYPOINT ["uwsgi", "--ini", "report.ini"]
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
